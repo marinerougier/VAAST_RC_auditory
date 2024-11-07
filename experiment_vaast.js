@@ -403,8 +403,8 @@ var save_vaast_trial = {
 // Switching to fullscreen --------------------------------------------------------------
 var fullscreen_trial = {
   type: 'fullscreen',
-  message: 'Pour commencer, merci de passer en plein écran </br></br>',
-  button_label: 'Passer en plein écran',
+  message: 'Pour commencer, merci de passer en mode plein écran </br></br>',
+  button_label: 'Passer en mode plein écran',
   fullscreen_mode: true
 }
 
