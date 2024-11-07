@@ -212,8 +212,8 @@ var group_to_approach = undefined;
 var group_to_avoid    = undefined;
 
  var genColor = function (colorID, colorName) { return "<span style='color:" + colorID + "'><b>" + colorName + "</b></span>" };
- var blue = genColor("#2a57ea", "blue");
- var yellow = genColor("#b5a21b", "yellow");
+ var blue = genColor("#2a57ea", "bleu");
+ var yellow = genColor("#b5a21b", "jaune");
 
 switch(vaast_condition_approach) {
   case "approach_blue":
