@@ -34,8 +34,8 @@ if (!is_compatible) {
   var safari_exclusion = {
     type: "html-keyboard-response",
     stimulus:
-      "<p>Désolé, cette étude n'est pas compatible avec votre navigateur.</p>" +
-      "<p>Merci d'essayer à nouveau avec un navigateur compatible (par ex., Chrome or Firefox).</p>",
+      "<p>Sorry, this study is not compatible with your browser.</p>" +
+      "<p>Please try again with a compatible browser (e.g., Chrome or Firefox).</p>",
     choices: jsPsych.NO_KEYS
   };
 
@@ -116,7 +116,7 @@ connectedRef.on("value", function (snap) {
       return true;
     }
     else {
-      alert("Si vous souhaitez participer, vous devez cocher toutes les cases. Si vous ne souhaitez pas participer, fermez la fenêtre du navigateur.");
+      alert("If you wish to participate, you must check all the boxes. If you don’t wish to participate, close the browser window.");
       return false;
     }
     return false;
@@ -410,25 +410,26 @@ var fullscreen_trial = {
 
 
 // VAAST --------------------------------------------------------------------------------
+
 var Gene_Instr = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Expérience sur la catégorisation</h1>" +
+    "<h1 class ='custom-title'> Experiment on categorization</h1>" +
     "<br>" +
-    "<p class='instructions'> Dans cette recherche, nous nous intéressons à la capacité générale des individus à catégoriser " +
-    "rapidement autrui. </p>" +
-    "<p class='instructions'>Dans cette expérience, vous allez " +
-    "réaliser deux tâches de catégorisation : " +
+    "<p class='instructions'> In this research, we are interested in the general ability to quickly categorize " +
+    "others. </p>" +
+    "<p class='instructions'>In this experiment, you will " +
+    "perform two categorization tasks: " +
     "<br>" +
-    "- Tâche 1 : La tâche de jeu vidéo (environ 13 min)" +
+    "- Task 1: The Video Game task (approx. 13 min)" +
     "<br>" +
-    "- Tâche 2 : La tâche de reconnaissance (environ XX min)" +
+    "- Task 2: The recognition task (approx. XX min)" +
     "<br>" +
     "<br>" +
-    "Pour terminer, vous répondrez à quelques questions (environ 1 min). </p>" +
+    "To finish, you will answer a few questions (approx. 1 min). </p>" +
     "<br>" +
-    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
-    " continuer.</p>",
+    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
+    " continue.</p>",
   choices: [32]
 };
 
@@ -437,108 +438,107 @@ var Gene_Instr = {
 var vaast_instructions_1 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
-    "<p class='instructions'>Cette tâche ressemble à un jeu vidéo. Vous serez " +
-    "dans un environnement virtuel dans lequel vous pourrez avancer ou reculer. " +
-    "L'environnement dans lequel vous évoluerez est affiché ci-dessous. </p>" +
+    "<h1 class ='custom-title'> Task 1: Video Game task</h1>" +
+    "<p class='instructions'>This task is much like a video game. You will be " +
+    "in a virtual environment in which you will be able to move forward or backward. "+
+    "The environment in which you will move is displayed below. </p>" +
     "<br>" +
     "<img src = 'media/vaast-background.png'>" +
     "<br>" +
-    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
-    " continuer.</p>",
+    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
+    " continue.</p>",
   choices: [32]
 };
-
 
 var vaast_instructions_2 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
-    "<p class='instructions'>Une série de visages apparaîtra dans cet environnement et " +
-    "votre tâche sera de les catégoriser le plus rapidement possible. <br>" +
-    "<p class='instructions'>Ces visages ont été volontairement <b>floutés</b>. Voici " +
-    "deux exemples de visages qui seront affichés : <br><br>" +
+    "<h1 class ='custom-title'> Task 1: Video Game task</h1>" +
+    "<p class='instructions'>A series of faces will be displayed in this environment and " +
+    "your task will be to categorize them as fast as possible. <br>" +
+    "<p class='instructions'>These faces have been deliberately <b>blurred</b>. Here are " +
+    "two examples of faces that will be displayed: <br><br>" +
     "<center><img src = '"+ vaast_stim_training[0]['stimulus']+"'>" +
     "                              " +
     "<img src = '"+ vaast_stim_training[9]['stimulus']+"'></center>" +
     "<br><br>" +
-    "<p class='instructions'>Votre tâche sera d'avancer ou de reculer " +
-    "en fonction de la couleur de fond (c'est-à-dire, " + group_to_approach + " ou " + group_to_avoid + ") de ces images. " +
-    "Des instructions plus précises suivront. <br>" +
+    "<p class='instructions'>Your task will be to move forward or move backward " +
+    "as a function of the background color (i.e., " + group_to_approach + " or " + group_to_avoid + ") of these images. "+
+    "More specific instructions will follow. <br>" +
     "<br>" +
-    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
-    " continuer.</p>",
+    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
+    " continue.</p>",
   choices: [32]
 };
 
 var vaast_instructions_3 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
-    "<p class='instructions'>Vous pourrez avancer/reculer en utilisant les touches suivantes de votre clavier :" +
+    "<h1 class ='custom-title'> Task 1: Video Game task</h1>" +
+    "<p class='instructions'>You will be able to move forward/backward by using the following keys on your keyboard:" +
     "<br>" +
     "<br>" +
-    "<img src = 'media/keyboard-vaast_french.png'>" +
+    "<img src = 'media/keyboard-vaastt.png'>" +
     "<br>" +
     "<br></p>" +
     "<br>" +
-    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
-    " continuer.</p>",
+    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
+    " continue.</p>",
   choices: [32]
 };
+
 
 var vaast_instructions_4 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
-    "<p class='instructions'>Au début de chaque essai, vous verrez apparaître le symbole 'O'. " +
-    "Ce symbole indique que vous devez appuyer sur la touche de DÉPART (c'est-à-dire, la <b>touche D</b>) pour commencer l'essai. </p>" +
-    "<p class='instructions'>Ensuite, vous verrez une croix de fixation (+) au centre de l'écran, suivie d'un visage. </p>" +
-    "<p class='instructions'>En fonction de la couleur de fond (" + group_to_approach + " ou " + group_to_avoid + ") du visage, votre tâche est d'avancer en appuyant sur la touche AVANCER (c'est-à-dire, la <b>touche E</b>) " +
-    "ou de reculer en appuyant sur la touche RECULER (c'est-à-dire, la <b>touche C</b>) le plus rapidement possible. Après avoir appuyé sur la touche E ou C, le visage disparaîtra et vous devrez " +
-    "appuyer à nouveau sur la touche de DÉPART (touche D). " +
-    "<p class='instructions'><b>Veuillez <u>utiliser uniquement l'index</u> de votre main dominante pour toutes ces actions. </b></p>" +
+    "<h1 class ='custom-title'> Task 1: Video Game task</h1>" +
+    "<p class='instructions'>At the beginning of each trial, you will see the 'O' symbol. " +
+    "This symbol indicates that you have to press the START key (namely, the <b>D key</b>) to start the trial. </p>" +
+    "<p class='instructions'>Then, you will see a fixation cross (+) at the center of the screen, followed by a face. </p>" +
+    "<p class='instructions'>As a function of the background color (" + group_to_approach + " or " + group_to_avoid + ") of the face, your task is to move forward by pressing the MOVE FORWARD key (namely, the <b>E key</b>) "+
+    "or to move backward by pressing the MOVE BACKWARD key (namely, the <b>C key</b>) as fast as possible. After the key press, the face will disappear and you will have to " +
+    "press again the START key (D key). " +
+    "<p class='instructions'><b>Please <u>use only the index finger</u> of your dominant hand for all these actions. </b></p>" +
     "<br>" +
-    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
-    " continuer.</p>",
+    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
+    " continue.</p>",
   choices: [32]
 };
+
 
 var vaast_instructions_5 = {
   type: "html-keyboard-response",
   stimulus:
-    "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
-    "<p class='instructions'>Plus spécifiquement, vous devrez : " +
+    "<h1 class ='custom-title'> Task 1: Video Game task</h1>" +
+    "<p class='instructions'>More precisely, you have to: " +
     "<ul class='instructions'>" +
-    "<li><strong>Avancer pour les visages avec un fond " + group_to_approach + " </strong></li>" +
-    "<strong>en appuyant sur la touche E</strong>" +
+    "<li><strong>Move forward for faces with a " + group_to_approach + " background </strong></li>" +
+    "<strong>by pressing the E key</strong>" +
     "<br>" +
     "<br>" +
-    "<li><strong>Reculer pour les visages avec un fond " + group_to_avoid + " </strong></li>" +
-    "<strong>en appuyant sur la touche C</strong>" +
+    "<li><strong>Move backward for faces with a " + group_to_avoid + " background </strong></li>" +
+    "<strong>by pressing the C key</strong>" +
     "</ul>" +
-    "<p class='instructions'>Veuillez lire attentivement et assurez-vous de mémoriser les instructions ci-dessus. </p>" +
-    "<p class='instructions'><strong>De plus, notez qu'il est EXTRÊMEMENT IMPORTANT d'essayer d'être aussi rapide et précis·e que possible. </strong>" +
-    "Une croix rouge apparaîtra si votre réponse est incorrecte. </p>" +
+    "<p class='instructions'>Please read carefully and make sure that you memorize the instructions above. </p>" +
+    "<p class='instructions'><strong>Also, note that is it EXTREMELY IMPORTANT that you try to be as fast and accurate as you can. </strong>" +
+    "A red cross will appear if your response is incorrect. </p>" +
     "<br>" +
     "<br>" +
-    "<p class = 'continue-instructions'>Appuyez sur <strong>ENTRÉE</strong> pour " +
-    "commencer la tâche.</p>",
+    "<p class = 'continue-instructions'>Press <strong>ENTER</strong> to " +
+    "start the task.</p>",
   choices: [13]
 };
-
 
 var vaast_instructions_end = {
   type: "html-keyboard-response",
   stimulus:
-    "<p class='instructions'>La tâche du jeu vidéo (tâche 1) est terminée. " +
-    "Vous allez maintenant réaliser la tâche de reconnaissance (tâche 2). </p>" +
+    "<p class='instructions'>The Video Game task (task 1) is completed. " +
+    "Now, you will perform the Recognition Task (task 2). </p>" +
     "<br>" +
-    "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
-    " commencer la tâche 2.</p>",
+    "<p class = 'continue-instructions'>Press <strong>space</strong> to" +
+    " begin Task 2.</p>",
   choices: [32]
 };
-
 
 // Creating a trial for the VAAST cond ---------------------------------------------------------------------
 
@@ -666,7 +666,7 @@ timeline.push(fullscreen_trial_exit);
 // In principle, it should have ended when participants starts VAAST procedure (which)
 // contains most of the image that have to be pre-loaded.
 var loading_gif = ["media/loading.gif"]
-var vaast_instructions_images = ["media/vaast-background.png", "media/keyboard-vaast_french.png"];
+var vaast_instructions_images = ["media/vaast-background.png", "media/keyboard-vaastt.png"];
 var vaast_bg_filename = background;
 
 jsPsych.pluginAPI.preloadImages(loading_gif);

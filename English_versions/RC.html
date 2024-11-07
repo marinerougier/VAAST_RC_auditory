@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>exp</title>
+  <script src="jsPsych-6.1.0/jspsych.js"></script>
+  <script src="jsPsych-6.1.0/plugins/jspsych-fullscreen.js"></script>
+  <script src="jsPsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+  <script src="jsPsych-6.1.0/plugins/jspsych-html-button-response.js"></script>
+  <script src="jsPsych-6.1.0/plugins/jspsych-survey-text.js"></script>
+  <script src="jsPsych-6.1.0/plugins/jspsych-survey-likert.js"></script>
+  <script src="jsPsych-6.1.0/plugins/jspsych-survey-multi-choice.js"></script>
+  <script src="js/jspsych-html-slider-response_required.js"></script>
+  <script src="jsPsych-6.1.0/plugins/jspsych-external-html.js"></script>
+  <script src="jsPsych-6.1.0/plugins/jspsych-html-mouse-response.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/lodash.min.js"></script>
+  <script src="js/firebase.js"></script>
+  <link href="jsPsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css">
+  <style>
+    body {
+      cursor: default;
+    }
+    .jspsych-content-wrapper {
+      width: 900px;
+      height: 1500px;
+    }
+    .paringsImgsLeft,
+    .paringsImgsRight {
+      height: 320px;
+      margin: 0px;
+    }
+    .imgInstr {
+      height: 150px; 
+    }
+    .paringsImgsLeft {
+      margin-right: 10px;
+    }
+    .imgJudge {
+      position: fixed;
+      width: 15%; 
+      margin: 0px;
+      padding: 0px;
+      top: 0px;
+      left:41%;
+      z-index: 2;
+    }
+    .imgBack {
+      position: fixed;
+      width: 70%; 
+      margin: 0px;
+      padding: 0px;
+      top: 0px;
+      left:15%;
+      z-index: 2;
+    }
+    .displayInstr {
+      height: 130px;
+    }
+    .rcimg-02{
+      cursor: pointer;
+    }
+    .rcimg-02 {
+      margin-top: 25px;
+      margin-bottom: 25px;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    .rcimg-02:hover {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }    
+  </style>
+</head>
+<body></body>
+<script>
+
+  /* Parameters for the Reverse Correlation task */
+  var numOfPairsRC02 = 400;  // Total number of pair images images (inv & ori) = 400
+
+  /* Initial variables */
+  var timeline = [];
+  var preloadimages = [];
+  var preloadsounds = [];
+  var id            = jsPsych.data.getURLVariable("id");
+  var prolificID    = jsPsych.data.getURLVariable("prolificID");
+  var vaast_condition_approach = jsPsych.data.getURLVariable("vaast_condition_approach");
+  var ColorGroup    = jsPsych.data.getURLVariable("ColorGroup");
+
+  // color ramdomly selected
+  var target_color_RC   = jsPsych.randomization.sampleWithoutReplacement(["target_blue", "target_yellow"], 1)[0];
+
+  var genColor = function (colorID, colorName) { return "<span style='color:" + colorID + "'><b>" + colorName + "</b></span>" };
+
+   if (target_color_RC == "target_blue") {
+        var color1 = genColor("#2a57ea", "blue");
+        var color2 = genColor("#b5a21b", "yellow");
+    } else {
+        var color1 = genColor("#b5a21b", "yellow");
+        var color2 = genColor("#2a57ea", "blue");
+    };
+
+  /* EXPERIMENT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  /* Fullscreen mode & Consent */
+    var activeFullscreen = {
+      message: "",
+      button_label: "Please click here to start Task 2",
+      type: 'fullscreen',
+      fullscreen_mode: true,
+      delay_after: 200,
+    };
+
+  /* RC instructions */
+     var RCinst1 = {
+        type: "html-keyboard-response",
+        post_trial_gap: 300,
+        choices: [32],
+        stimulus: function () {
+            var html = "";
+            html += "<h1>Task 2: Voice recognition task</h1>";
+            html += "<p class = 'justify'>For a start, let us inform you that <b>each group of faces</b> that you saw in the Video Game task ";
+            html += "(i.e., those with a " + color1 + " background and those with a " + color2 + " background) ";
+            html += "was in fact <b>very different from the other group.</b></br></br>";
+            html += "Moreover, <b>within each group</b>, members also share a series of characteristics, ";
+            html += "making them <b>similar to each other</b>. Among those characteristics is the voice: members of the same group have a similar ";
+            html += "voice that is also very different from the voice of the other group. </p>";
+            html += "<p></br>Press <span class='light-keys'><kbd>space</kbd></span> to continue</p>";
+            return html;
+        },
+    };
+
+
+    var RCinst2 = {
+        type: "html-keyboard-response",
+        post_trial_gap: 300,
+        choices: [32],
+        stimulus: function () {
+            var html = "";
+            html += "<h1>Task 2: Voice recognition task</h1>";
+            html += "<p class = 'justify'> In this task, we will present pairs of voices like the ones shown below. ";
+            html += "These voices have been deliberately noised so that they look rather similar to each other. ";
+            html += "Note, however, that voices are different from one another. </p>";
+            html += "<audio controls src='" + soundsRC02[0][0] + "'></audio>";
+            html += "<audio controls src='" + soundsRC02[0][1] + "'></audio>";
+            html += "<p class = 'justify'>For each pair, your task will be to select the one voice that ";
+            html += "you think is <b>the most similar to the group of faces that had a " + color1 + " background</b> ";
+            html += "in the previous task (i.e., the Video Game task).</p>";
+            html += "<p></br>Press <span class='light-keys'><kbd>space</kbd></span> to continue</p>";
+            return html;
+        },
+    };
+
+
+    var RCinst3 = {
+        type: "html-keyboard-response",
+        post_trial_gap: 300,
+        choices: [32],
+        stimulus: function () {
+            var html = "";
+            html += "<h1>Task 2: Voice recognition task</h1>";
+            html += "<p class = 'justify'>Before you start, please note that: </br></br>";
+            html += "<b>There are no good or bad answers!</b> ";
+            html += "You just have to make a choice <b>as intuitively</b> as possible. ";
+            html += "On average, for each trial, participants take about <b>1 second</b> ";
+            html += "to select a voice. Please <b>try to maintain a similar pace</b>.</br></br>";
+            html += "You will have to peform a total of 400 trials. Use your mouse to select a voice at each trial.</p>";
+            html += "<p></br>Press <span class='light-keys'><kbd>space</kbd></span> to start</p>";
+            return html;
+        },
+    };
+
+
+
+  /* Questions INSTRUCTIONS */
+  var Instr_Quest = {
+    type: "html-keyboard-response",
+    post_trial_gap: 300,
+    choices: [32],
+    on_load: function() {
+          $('.jspsych-content-wrapper').css({ "width": "900px" });
+          $(".jspsych-content").css("max-width", "90%");
+    },
+    stimulus: function() {
+      var html = "";
+      html += "<p class='justify'>TASK 2 is over. In this final phase, we will ask you a few questions.</b></br></br>";
+      html += "<p></br>Press <span class='light-keys'><kbd>space</kbd></span> to continue</p>";
+      return html;
+    },
+  };
+
+
+// RC ---------------------------------------------------------------------------------------------------------------
+    /* Parameters for the Reverse Correlation task */
+    var numOfPairsRC02 = 10;  // Total number of pair images images (inv & ori) = 400
+
+    /* Generate RC trials */
+    var soundsRC02 = _.range(1, numOfPairsRC02 + 1); // generate numerical sequence
+
+    soundsRC02 = soundsRC02.map(function (e) { return ['./sound_rc/SoundMinus_' + e + '.wav', './sound_rc/SoundPlus_' + e + '.wav'] }); // pairs of sounds
+    soundsRC02 = _.flattenDeep(soundsRC02);
+
+    // preload
+    preloadsounds.push(soundsRC02);
+
+    // Create chunks
+    soundsRC02 = _.chunk(soundsRC02, 02); // 1 ori + 1 inv = 2 faces per trial
+
+    var RC02_stim = [];
+    var trialSounds = [];
+    soundsRC02.map(function (e) { RC02_stim.push({ trialSounds: e }) });
+
+    /* RC */
+    var cssRC = "rcimg-02";
+    var numOfPairs = numOfPairsRC02;
+    
+
+    var i = 1;
+    var RC1 = {
+        timeline_variables: RC02_stim,
+        randomize_order: true,
+        data: {
+            task: 'RC1',
+            numOfPairs: numOfPairs
+        },
+        timeline: [{
+            type: 'html-button-response', //'audio-button-response',
+            on_load: function () {
+                        $('.jspsych-content-wrapper').css({ "width": "1100px" });
+                        $('.jspsych-content').css({ "max-width": "100%" });
+            },
+            stimulus: function () {
+                html = "";
+                html += "<p>Select the voice that you think is the most similar to </br>the group of faces ";
+                html += "that had a " + color1 + " background. Press 'left' for the left voice and 'right' for the right voice.</br></br>";
+                jsPsych.timelineVariable('trialSounds', true).map(function (e) {
+                    html += "<audio controls src='" + e + "'></audio>";
+                });
+                html += "</br>Trial: " + i + "/" + numOfPairs + "</br>";
+                i += 1;
+                return html;
+            },
+          choices: ['left voice', 'right voice'],
+        }]
+    };
+
+
+// Questions ---------------------------------------------------------------------------------------------------------------
+ // Liking
+   var likertPreamble = '<p class = "justify">Please indicate your degree of (dis)agreement with the statements listed below. ' +
+        'To do so, use the following scale: ' +
+        'from 1 = “Totally disagree” to 7 = “Totally agree”</p>';
+
+    var likertScale = ["1</br>Totally disagree", "2", "3", "4", "5", "6", "7</br>Totally agree"];
+
+
+    var likingItems = [
+        'I like the ' + color1 + 'group.',
+        'I like the ' + color2 + 'group.',
+        'Please answer 4 to this statement.',
+        'I think the ' + color1 + 'group is trustworthy.',
+        'I think the ' + color2 + 'group is trustworthy.',
+    ];
+
+    var questionsLiking = [];
+    likingItems.map(function (item) { questionsLiking.push({ prompt: '<i>' + item + '</i>', labels: likertScale, required: true }); });
+
+    var liking = {
+        type: 'survey-likert',
+        preamble: likertPreamble,
+        questions: questionsLiking,
+        post_trial_gap: 300,
+        randomize_question_order: true,
+        on_load: function () {
+            //$(".jspsych-content-wrapper").css("height", "auto");
+            $(".jspsych-content-wrapper").scrollTop(0);
+            $('.jspsych-content-wrapper').css({ "height": "1300px" });
+        },
+        on_finish: function (data) {
+            var parsed_response = JSON.parse(data.responses);
+            jsPsych.data.addProperties({
+                liking_targetcolor: parsed_response.Q0,
+                liking_othercolor: parsed_response.Q1,
+                AttentionCheck: parsed_response.Q2,
+                trust_targetcolor: parsed_response.Q3,
+                trust_othercolor: parsed_response.Q4,
+            });
+        },
+    };
+
+ /* AGE */
+  var age = {
+      timeline: [{
+        type: 'survey-text',
+        questions: [{prompt: "How old are you?", rows: 1, columns: 10}],
+        button_label: "Continue",
+      }],
+      on_load: function() {
+          window.scrollTo(0, 0);
+          $(".jspsych-content").css("margin-top", "200px");
+          $(".jspsych-content").css("max-width", "90%");
+        },
+      loop_function: function(data){ 
+        var age = data.values()[0].responses;
+        var age = JSON.parse(age).Q0; 
+        if(age == ""){
+          alert("Please indicate your age"); 
+          return true; 
+        }
+      },
+      on_finish: function(data) {
+          jsPsych.data.addProperties({
+              age: JSON.parse(data.responses)["Q0"],
+          });
+      },
+  };
+
+  var gender = {
+      type: 'survey-multi-choice',
+      questions: [{prompt: "Please indicate your gender:", options: ['Male', 'Female', 'Other'], required: true}],
+      button_label: "Continue",
+      on_finish: function(data) {
+          jsPsych.data.addProperties({
+              gender: JSON.parse(data.responses)["Q0"],
+          });
+      },
+  };
+
+  var Prolific_reported = {
+        timeline: [{
+            type: 'survey-text',
+            questions: [{ prompt: 'Please indicate your Prolific ID:', rows: 3, columns: 60 }],
+            button_label: "continue",
+        }],
+        loop_function: function (data) {
+            var res = data.values()[0].responses;
+            var res = JSON.parse(res).Q0;
+            if (res == "") {
+                alert("Please answer the question");
+                return true;
+            }
+        },
+        on_finish: function (data) {
+            jsPsych.data.addProperties({
+                Prolific_reported: JSON.parse(data.responses).Q0,
+            });
+        },
+    };
+
+  var comments = {
+        timeline: [{
+            type: 'survey-text',
+            questions: [{ prompt: 'Do you have comments regarding this study? [Optional]', rows: 3, columns: 60 }],
+            button_label: "continue",
+        }],
+        on_finish: function (data) {
+            jsPsych.data.addProperties({
+                Comment: JSON.parse(data.responses).Q0,
+            });
+        },
+    };
+
+ /* EXIT FULLSCREEN MODE */
+  var exitFullscreen = {
+    type: 'fullscreen',
+    fullscreen_mode: false
+  };
+
+    /* DEBRIEF */
+  var debrief = [];
+  debrief += "<h1>End of the study</h1>";
+  debrief += "<p class='justify'>Thank you for participating in this online experiment!<br><br>";
+  debrief += "In some experiments, we cannot tell people everything about the experiment at the beginning because their responses would not be ";
+  debrief += "natural. For example, if we told people what the point of the experiment was ahead of time, then some people might do whatever ";
+  debrief += "it is they think we want them to do, just to be helpful. Other people might do the exact opposite of what they think we want "; 
+  debrief += "them to do, just to show us that we cannot figure them out. When people are trying to second-guess what the experiment is "; 
+  debrief += "really about, and they behave a certain way because of it, our results get messed up. That is because they are not behaving "; 
+  debrief += "like they naturally would in the real world. The whole point of this experiment is to find out how people would ";
+  debrief += "naturally behave.<br><br>";
+  debrief += "Now we would like to explain what we were trying to learn about with this study. In the first task (TASK 1), we systematically "; 
+  debrief += "asked you to approach or avoid a group of faces. You had to aggressively approach a group or to approach to affiliate with a group or "; 
+  debrief += "to avoid a group. Our hypothesis is that this action could have an influence on the way you perceive individuals of that group. <br><br>";
+  debrief += "More specifically, our goal was to test whether TASK 1 could change how you visually represent faces of the group that you approached or avoided. "; 
+  debrief += "More specifically, if you aggressed the group or avoided the group, you should have a more negative visual representation "; 
+  debrief += "of the faces of this group as compared to if you approached the group to affiliate. We measured your visual representation of the group in TASK 2. <br><br>";
+  debrief += "We would like to emphasize that there are no correct responses in this study: We were looking at people’s natural responses. ";
+  debrief += "We hope you understand that we couldn't tell you all of this before because it would have ruined our study. ";
+  debrief += "Again, your responses will be anonymous and will be analyzed as part of a group of responses.</br></br>";
+  debrief += "We hope this explanation was clear. If you want additional information, if you have any questions, or if you would like ";
+  debrief += "to withdraw consent and have your data excluded, do not hesitate to contact us via Prolific Academic. If you are "; 
+  debrief += "interested, you can also ask for the results of this experiment—be aware, however, that this could take several weeks "; 
+  debrief += "to gather all the data we need and to analyze them. <br><br>";
+  debrief += "You can copy this code on Prolific: <b>7B9D5899</b> ";
+  debrief += "or you can click on the following link to validate your participation:</p>";
+  debrief += "<a href='https://app.prolific.com/submissions/complete?cc=7B9D5899' target='_blank'>click here</a><br><br>";
+
+
+  /* TIMELINES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  timeline.push(activeFullscreen);
+  timeline.push(RCinst1);
+  timeline.push(RCinst2);
+  timeline.push(RCinst3);
+  timeline.push(RC1);
+  timeline.push(Instr_Quest);
+  timeline.push(liking);
+  timeline.push(age);
+  timeline.push(gender);
+  timeline.push(Prolific_reported);
+  timeline.push(comments);
+  timeline.push(exitFullscreen);
+
+  preloadimages = _.flattenDeep(preloadimages);
+
+  timeline = _.flattenDeep(timeline); // do not remove this!
+
+  /* INITIALISE EXP  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+  jsPsych.init({
+    timeline: timeline,
+    preload_images: preloadimages,
+    preload_sounds: preloadsounds,
+    max_load_time: 500*1000,
+    exclusions: {
+      min_width: 1100,
+      min_height: 600,
+      max_width: 1600,
+      max_height: 900,
+    },
+    on_finish: function (data) {
+      $("#jspsych-content").html("<img src='https://i.gifer.com/4V0b.gif'>");
+
+
+      /* Initialize Firebase */
+      var config = {
+        apiKey: "xxx",      // replace with values !
+        databaseURL: "xxx"  // replace with values !
+      };
+
+      firebase.initializeApp(config);
+      var database = firebase.database();
+
+      /* jsPsych: add data to every trial */
+      jsPsych.data.addProperties({
+        id: id,
+        prolificID: prolificID,
+        vaast_condition_approach: vaast_condition_approach,
+        target_color_RC: target_color_RC,
+        ColorGroup: ColorGroup,
+        totalTime: jsPsych.totalTime()
+      });
+
+        var dataRC = jsPsych.data.get().filterCustom(function (x) {
+          return x.task == "RC1" || x.task == "RC2"
+        }).csv();
+
+      /* Send data to Firebase */
+      database
+        .ref("RC_auditory/" + id + "/")
+        .update({ dataRC })
+        .then(function () {
+              console.log("Data sent!");
+              $("#jspsych-content").html(debrief);        });
+    }
+  });
+</script>
+
+</html>
