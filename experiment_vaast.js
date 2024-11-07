@@ -125,7 +125,7 @@ connectedRef.on("value", function (snap) {
 
   var consent = {
     type:'external-html',
-    url: "https://marinerougier.github.io/RR_Expe1/external_page_consent.html",
+    url: "https://marinerougier.github.io/VAAST_RC_auditory/external_page_consent.html",
     cont_btn: "start",
     check_fn: check_consent,
         on_load: function() {
@@ -478,7 +478,7 @@ var vaast_instructions_3 = {
     "<p class='instructions'>Vous pourrez avancer/reculer en utilisant les touches suivantes de votre clavier :" +
     "<br>" +
     "<br>" +
-    "<img src = 'media/keyboard-vaast_french.png'>" +
+    "<img src = 'media/keyboard_vaast_french.png'>" +
     "<br>" +
     "<br></p>" +
     "<br>" +
@@ -666,7 +666,7 @@ timeline.push(fullscreen_trial_exit);
 // In principle, it should have ended when participants starts VAAST procedure (which)
 // contains most of the image that have to be pre-loaded.
 var loading_gif = ["media/loading.gif"]
-var vaast_instructions_images = ["media/vaast-background.png", "media/keyboard-vaast_french.png"];
+var vaast_instructions_images = ["media/vaast-background.png", "media/keyboard_vaast_french.png"];
 var vaast_bg_filename = background;
 
 jsPsych.pluginAPI.preloadImages(loading_gif);
