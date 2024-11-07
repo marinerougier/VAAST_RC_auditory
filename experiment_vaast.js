@@ -423,7 +423,7 @@ var Gene_Instr = {
     "<br>" +
     "- Task 1: The Video Game task (approx. 13 min)" +
     "<br>" +
-    "- Task 2: The recognition task (approx. 8 min)" +
+    "- Task 2: The recognition task (approx. XX min)" +
     "<br>" +
     "<br>" +
     "To finish, you will answer a few questions (approx. 1 min). </p>" +
@@ -690,7 +690,7 @@ if (is_compatible) {
     },
     on_finish: function () {
       saving_browser_events(completion = true);
-      window.location.href = "https://marinerougier.github.io/RR_Expe1/RC.html?id=" + id + "&prolificID=" + 
+      window.location.href = "https://marinerougier.github.io/VAAST_RC_auditory/RC.html?id=" + id + "&prolificID=" + 
       prolificID + "&vaast_condition_approach=" + vaast_condition_approach + "&ColorGroup=" + ColorGroup;
     }
   });
