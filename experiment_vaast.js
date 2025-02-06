@@ -465,8 +465,7 @@ var vaast_instructions_1 = {
   stimulus:
     "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
     "<p class='instructions'>Cette tâche ressemble à un jeu vidéo. Vous serez " +
-    "dans un environnement virtuel dans lequel vous pourrez avancer ou reculer. " +
-    "L'environnement dans lequel vous évoluerez est affiché ci-dessous. </p>" +
+    "dans un environnement virtuel dans lequel vous pourrez avancer ou reculer: </p>" +
     "<br>" +
     "<img src = 'media/vaast-background.png'>" +
     "<br>" +
@@ -480,11 +479,11 @@ var vaast_instructions_2 = {
   type: "html-keyboard-response",
   stimulus:
     "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
-    "<p class='instructions'>Dans cet environnement, une série de visages vous sera présentée. </b>Comme vous le verrez, à chaque fois qu'un visage apparaitra, <u>il "+
-    "se présentera à vous disant 'bonjour'</u>. <b> Votre tâche sera de catégoriser le visage le plus rapidement possible en fonction de sa couleur de fond (c'est-à-dire, " + group_to_approach + " ou " + group_to_avoid + "). " +
+    "<p class='instructions'>Dans cet environnement, des visages vous seront présentés. </b>A chaque fois qu'un visage apparaitra, <u>il "+
+    "se présentera à vous disant 'bonjour'</u>. <b><br> Votre tâche sera de catégoriser le visage le plus rapidement possible en fonction de sa couleur de fond (c'est-à-dire, " + group_to_approach + " ou " + group_to_avoid + "). " +
     "Pour catégoriser le visage, vous devrez soit avancer soit reculer dans l'environnement virtuel. Des instructions plus précises suivront. <br>" +
     "<p class='instructions'>Notez que ces visages ont été volontairement <b>floutés</b>. Voici " +
-    "deux exemples de visages qui seront affichés : <br><br>" +
+    "deux exemples de visages qui seront affichés : <br>" +
     "<center><img src = '"+ vaast_stim_training[0]['stimulus']+"'>" +
     "                              " +
     "<img src = '"+ vaast_stim_training[9]['stimulus']+"'></center>" +
@@ -498,7 +497,7 @@ var vaast_instructions_3 = {
   type: "html-keyboard-response",
   stimulus:
     "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
-    "<p class='instructions'>Vous pourrez avancer/reculer en utilisant les touches suivantes de votre clavier :" +
+    "<p class='instructions'>Vous pourrez avancer/reculer dans l'environnement en utilisant les touches suivantes de votre clavier :" +
     "<br>" +
     "<br>" +
     "<img src = 'media/keyboard_vaast_french.png'>" +
