@@ -442,7 +442,7 @@ var Gene_Instr = {
     "<h1 class ='custom-title'> Expérience sur la catégorisation</h1>" +
     "<br>" +
     "<p class='instructions'> Dans cette recherche, nous nous intéressons à la capacité générale des individus à catégoriser " +
-    "rapidement autrui. </p>" +
+    "autrui. </p>" +
     "<p class='instructions'>Dans cette expérience, vous allez " +
     "réaliser deux tâches de catégorisation : " +
     "<br>" +
@@ -480,18 +480,15 @@ var vaast_instructions_2 = {
   type: "html-keyboard-response",
   stimulus:
     "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
-    "<p class='instructions'>Une série de visages apparaîtra dans cet environnement. </b>Comme vous le verrez, à chaque fois qu'un visage apparaitra, il "+
-    "se présentera à vous disant 'bonjour'. <b> Votre tâche sera de catégoriser le visage le plus rapidement possible, dès qu'il apparait à l'écran. <br>" +
-    "<p class='instructions'>Ces visages ont été volontairement <b>floutés</b>. Voici " +
+    "<p class='instructions'>Dans cet environnement, une série de visages vous sera présentée. </b>Comme vous le verrez, à chaque fois qu'un visage apparaitra, <u>il "+
+    "se présentera à vous disant 'bonjour'</u>. <b> Votre tâche sera de catégoriser le visage le plus rapidement possible en fonction de sa couleur de fond (c'est-à-dire, " + group_to_approach + " ou " + group_to_avoid + "). " +
+    "Pour catégoriser le visage, vous devrez soit avancer soit reculer dans l'environnement virtuel. Des instructions plus précises suivront. <br>" +
+    "<p class='instructions'>Notez que ces visages ont été volontairement <b>floutés</b>. Voici " +
     "deux exemples de visages qui seront affichés : <br><br>" +
     "<center><img src = '"+ vaast_stim_training[0]['stimulus']+"'>" +
     "                              " +
     "<img src = '"+ vaast_stim_training[9]['stimulus']+"'></center>" +
     "<br><br>" +
-    "<p class='instructions'>Votre tâche sera d'avancer ou de reculer " +
-    "en fonction de la couleur de fond (c'est-à-dire, " + group_to_approach + " ou " + group_to_avoid + ") de ces images. " +
-    "Des instructions plus précises suivront. <br>" +
-    "<br>" +
     "<p class = 'continue-instructions'>Appuyez sur <strong>espace</strong> pour" +
     " continuer.</p>",
   choices: [32]
