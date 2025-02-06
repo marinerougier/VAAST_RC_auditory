@@ -369,7 +369,7 @@ var next_position_training = function () {
 // init ---------------------------------------------------------------------------------
 var saving_id = function () {
   database
-    .ref("participant_id_RR_Expe1_AAT/")
+    .ref("participant_id_AuditiveRC_AAT/")
     .push()
     .set({
       id: id,
@@ -383,7 +383,7 @@ var saving_id = function () {
 // vaast trial --------------------------------------------------------------------------
 var saving_vaast_trial = function () {
   database
-    .ref("vaast_trial_AAT_RR_Expe1_AAT/").
+    .ref("vaast_trial_AAT_RR_AuditiveRC_AAT/").
     push()
     .set({
       id: id,
@@ -400,7 +400,7 @@ var saving_vaast_trial = function () {
 
 var saving_browser_events = function (completion) {
   database
-    .ref("browser_event_RR_Expe1_AAT/")
+    .ref("browser_event_RR_AuditiveRC_AAT/")
     .push()
     .set({
       id: id,
