@@ -533,14 +533,14 @@ var vaast_instructions_5 = {
     "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
     "<p class='instructions'>Plus spécifiquement, vous devrez : " +
     "<ul class='instructions'>" +
-    "<li><strong>Avancer pour les visages avec un fond " + group_to_approach + " </strong></li>" +
+    "<li><strong>Avancer pour les visages ayant un fond " + group_to_approach + " </strong></li>" +
     "<strong>en appuyant sur la touche E</strong>" +
     "<br>" +
     "<br>" +
-    "<li><strong>Reculer pour les visages avec un fond " + group_to_avoid + " </strong></li>" +
+    "<li><strong>Reculer pour les visages ayant un fond " + group_to_avoid + " </strong></li>" +
     "<strong>en appuyant sur la touche C</strong>" +
     "</ul>" +
-    "<p class='instructions'>Veuillez lire attentivement et assurez-vous de mémoriser les instructions ci-dessus. </p>" +
+    "<p class='instructions'>Lisez attentivement et assurez-vous de mémoriser les instructions ci-dessus. </p>" +
     "<p class='instructions'><strong>De plus, notez qu'il est EXTRÊMEMENT IMPORTANT d'essayer d'être aussi rapide et précis·e que possible. </strong>" +
     "Une croix rouge apparaîtra si votre réponse est incorrecte. </p>" +
     "<br>" +
