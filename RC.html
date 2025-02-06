@@ -94,11 +94,11 @@
   var genColor = function (colorID, colorName) { return "<span style='color:" + colorID + "'><b>" + colorName + "</b></span>" };
 
    if (target_color_RC == "target_blue") {
-        var color1 = genColor("#2a57ea", "blue");
-        var color2 = genColor("#b5a21b", "yellow");
+        var color1 = genColor("#2a57ea", "bleu");
+        var color2 = genColor("#b5a21b", "jaune");
     } else {
-        var color1 = genColor("#b5a21b", "yellow");
-        var color2 = genColor("#2a57ea", "blue");
+        var color1 = genColor("#b5a21b", "jaune");
+        var color2 = genColor("#2a57ea", "bleu");
     };
 
   /* EXPERIMENT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -121,7 +121,7 @@ var RCinst1 = {
         html += "<h1>Tâche 2 : Tâche de reconnaissance vocale</h1>";
         html += "<p class = 'justify'>Pour commencer, sachez que <b>chaque groupe de visages</b> que vous avez vu dans la tâche du Jeu Vidéo ";
         html += "(c'est-à-dire, ceux avec un fond " + color1 + " et ceux avec un fond " + color2 + ") ";
-        html += "étaient en fait <b>très différents de l'autre groupe.</b></br></br>";
+        html += "était en fait <b>très différent de l'autre groupe.</b></br></br>";
         html += "De plus, <b>au sein de chaque groupe</b>, les membres partagent également une série de caractéristiques, ";
         html += "les rendant <b>similaires les uns aux autres</b>. Parmi ces caractéristiques, il y a la voix : les membres du même groupe ont des caractéristiques vocales similaires. Ces caractéristiques sont aussi très différentes de celle de l'autre groupe. </p>";
         html += "<p></br>Appuyez sur <span class='light-keys'><kbd>espace</kbd></span> pour continuer</p>";
@@ -138,7 +138,7 @@ var RCinst2 = {
         html += "<h1>Tâche 2 : Tâche de reconnaissance vocale</h1>";
         html += "<p class = 'justify'>Dans cette tâche, nous allons vous présenter des paires de voix comme celles montrées ci-dessous. ";
         html += "Ces voix ont été délibérément bruitées. ";
-        html += "Notez que les voix ont l'air de se ressembler, cependant elles sont différentes les unes des autres. </p>";
+        html += "Notez que les voix ont l'air de se ressembler, mais elles sont en fait différentes les unes des autres. </p>";
         html += "<audio controls src='" + soundsRC02[0][0] + "'></audio>";
         html += "<audio controls src='" + soundsRC02[0][1] + "'></audio>";
         html += "<p class = 'justify'>Pour chaque paire, votre tâche consistera à sélectionner la voix que ";
@@ -178,7 +178,7 @@ var Instr_Quest = {
     },
     stimulus: function() {
       var html = "";
-      html += "<p class='justify'>LA TÂCHE 2 est terminée. Dans cette dernière partie, nous allons vous poser quelques questions.</b></br></br>";
+      html += "<p class='justify'>LA TÂCHE 2 est terminée. Merci d'avoir tenu jusqu'ici ! Dans cette dernière partie, nous allons vous poser quelques questions.</b></br></br>";
       html += "<p></br>Appuyez sur <span class='light-keys'><kbd>espace</kbd></span> pour continuer</p>";
       return html;
     },
@@ -210,6 +210,7 @@ var Instr_Quest = {
     
 
     var i = 1;
+    /*
     var RC1 = {
         timeline_variables: RC02_stim,
         randomize_order: true,
@@ -237,6 +238,54 @@ var Instr_Quest = {
             choices: ['voix gauche', 'voix droite'],
         }]
     };
+*/
+
+var RC1 = {
+    timeline_variables: RC02_stim,
+    randomize_order: true,
+    data: {
+        task: 'RC1',
+        numOfPairs: numOfPairs
+    },
+    timeline: [{
+        type: 'html-button-response',
+        on_load: function () {
+            $('.jspsych-content-wrapper').css({ "width": "1100px" });
+            $('.jspsych-content').css({ "max-width": "100%" });
+
+            // Disable buttons at start
+            document.querySelectorAll('.jspsych-btn').forEach(btn => btn.disabled = true);
+
+            // Select both audio elements
+            var audioElements = document.querySelectorAll("audio");
+            var playedCount = 0;
+
+            audioElements.forEach(audio => {
+                audio.addEventListener("ended", function () {
+                    playedCount++;
+                    if (playedCount === 2) {
+                        document.querySelectorAll('.jspsych-btn').forEach(btn => btn.disabled = false);
+                    }
+                });
+            });
+        },
+        stimulus: function () {
+            var html = "";
+            html += "<p>Sélectionnez la voix que vous pensez être la plus similaire au </br>groupe de visages ";
+            html += "qui avait un fond " + color1 + ". Appuyez sur 'voix gauche' pour la voix de gauche et 'voix droite' pour la voix de droite.</br></br>";
+
+            // Add both audio files
+            jsPsych.timelineVariable('trialSounds', true).map(function (e) {
+                html += "<audio controls src='" + e + "'></audio>";
+            });
+
+            html += "</br>Essai : " + i + "/" + numOfPairs + "</br>";
+            i += 1;
+            return html;
+        },
+        choices: ['voix gauche', 'voix droite'],
+    }]
+};
 
 
 // Questions ---------------------------------------------------------------------------------------------------------------
@@ -352,7 +401,7 @@ debrief += "est de découvrir comment les gens se comportent naturellement.<br><
 debrief += "Maintenant, nous aimerions vous expliquer ce que nous tentions d'apprendre avec cette étude. Dans la première tâche (TÂCHE 1), nous vous avons ";
 debrief += "systématiquement demandé d'approcher ou d'éviter un groupe de visages. Vous deviez vous approcher ou éviter un groupe. Notre hypothèse est que cette action pourrait influencer la manière dont vous percevez ";
 debrief += "les individus de ce groupe. <br><br>";
-debrief += "Plus précisément, notre objectif était de tester si la TÂCHE 1 pouvait modifier la manière dont vous représentez la voix les visages du ";
+debrief += "Plus précisément, notre objectif était de tester si la TÂCHE 1 pouvait modifier la manière dont vous représentez la voix du ";
 debrief += "groupe que vous avez approché ou évité. Plus précisément, si vous avez approché (plutôt que évité) le groupe, vous devriez vous représenter la voix ";
 debrief += "de ce groupe comme plus sympathique. Nous avons mesuré votre représentation ";
 debrief += "auditive du groupe dans la TÂCHE 2. <br><br>";

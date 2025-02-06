@@ -11,8 +11,6 @@
   var plugin = {};
 
   jsPsych.pluginAPI.registerPreload('vaast-image', 'stimulus', 'image');
-  jsPsych.pluginAPI.registerPreload('vaast-image', 'voice', 'audio');  // ADD THIS
-
 
   plugin.info = {
     name: 'vaast-image',
@@ -23,12 +21,6 @@
         pretty_name: 'Stimulus',
         default: undefined,
         description: 'The image to be displayed filename.'
-      },
-      voice: {
-        type: jsPsych.plugins.parameterType.AUDIO,
-        pretty_name: 'Voice',
-        default: undefined,
-        description: 'The audio file to be played with the stimulus.'
       },
       approach_key: {
         type: jsPsych.plugins.parameterType.HTML_STRING, 
@@ -121,18 +113,6 @@
 
 
   plugin.trial = function(display_element, trial) {
-  
-  var audio = new Audio(trial.voice);  // Create the audio object
-audio.addEventListener("canplaythrough", function () {  
-    console.log("Audio loaded successfully:", trial.voice);
-    audio.play().catch(error => console.error("Audio play error:", error));
-});
-audio.addEventListener("error", function () {
-    console.error("Audio file could not be loaded:", trial.voice);
-});
-
- var html_v = "<audio id='vaast-audio' src='" + trial.voice + "'></audio>";
-
 
     var html_str = "";
     
@@ -147,18 +127,9 @@ audio.addEventListener("error", function () {
 
     html_str += "</div>";
 
-    display_element.innerHTML = html_v + html_str;
-if (trial.voice) {
-    document.getElementById("vaast-audio").play();
-}
+    display_element.innerHTML = html_str;
 
-/*
-    // Play the corresponding voice if assigned
-    if (trial.voice) {
-        var audio = new Audio(trial.voice);
-        audio.play().catch(error => console.error("Audio play error:", error));
-    }
-*/
+
     // store response
     var response = {
       rt: null,
@@ -181,7 +152,6 @@ if (trial.voice) {
       var trial_data = {
         "rt": response.rt,
         "stimulus": trial.stimulus,
-        "voice": trial.voice,
         "key_press": response.key,
         "correct": response.correct,
         "movement": trial.stim_movement,
@@ -190,7 +160,6 @@ if (trial.voice) {
 
       // clears the display
       display_element.innerHTML = '';
-
 
       // move on to the next trial
       jsPsych.finishTrial(trial_data);

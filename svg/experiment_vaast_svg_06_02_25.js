@@ -203,27 +203,6 @@ var faces = [
 
 preloadimages.push(faces);
 
-// Voices for the VAAST
-var voices = [
-      "voices_VAAST/Voice_1.wav",
-      "voices_VAAST/Voice_2.wav",
-      "voices_VAAST/Voice_3.wav",
-      "voices_VAAST/Voice_4.wav",
-      "voices_VAAST/Voice_5.wav",
-      "voices_VAAST/Voice_6.wav",
-      "voices_VAAST/Voice_7.wav",
-      "voices_VAAST/Voice_8.wav",
-      "voices_VAAST/Voice_9.wav",
-      "voices_VAAST/Voice_10.wav",
-      "voices_VAAST/Voice_11.wav",
-      "voices_VAAST/Voice_12.wav",
-      "voices_VAAST/Voice_13.wav",
-      "voices_VAAST/Voice_14.wav",
-      "voices_VAAST/Voice_15.wav",
-      "voices_VAAST/Voice_16.wav"
-];
-
-
 // VAAST --------------------------------------------------------------------------------
 // VAAST variables ----------------------------------------------------------------------
 
@@ -304,11 +283,6 @@ case "G1Y":
     break;
 }
 
-// Shuffle voices and assign them to faces
-var shuffled_voices = jsPsych.randomization.shuffle(voices);
-for (var i = 0; i < vaast_stim_training.length; i++) {
-    vaast_stim_training[i].voice = shuffled_voices[i % shuffled_voices.length]; // Assign voices
-}
 
 // vaast background images --------------------------------------------------------------,
 
@@ -446,9 +420,9 @@ var Gene_Instr = {
     "<p class='instructions'>Dans cette expérience, vous allez " +
     "réaliser deux tâches de catégorisation : " +
     "<br>" +
-    "- Tâche 1 : La tâche du jeu vidéo (environ 10 min)" +
+    "- Tâche 1 : La tâche de jeu vidéo (environ 13 min)" +
     "<br>" +
-    "- Tâche 2 : La tâche de reconnaissance (environ 30 min)" +
+    "- Tâche 2 : La tâche de reconnaissance (environ XX min)" +
     "<br>" +
     "<br>" +
     "Pour terminer, vous répondrez à quelques questions (environ 1 min). </p>" +
@@ -480,8 +454,8 @@ var vaast_instructions_2 = {
   type: "html-keyboard-response",
   stimulus:
     "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
-    "<p class='instructions'>Une série de visages apparaîtra dans cet environnement. </b>Comme vous le verrez, à chaque fois qu'un visage apparaitra, il "+
-    "se présentera à vous disant 'bonjour'. <b> Votre tâche sera de catégoriser le visage le plus rapidement possible, dès qu'il apparait à l'écran. <br>" +
+    "<p class='instructions'>Une série de visages apparaîtra dans cet environnement et " +
+    "votre tâche sera de les catégoriser le plus rapidement possible. <br>" +
     "<p class='instructions'>Ces visages ont été volontairement <b>floutés</b>. Voici " +
     "deux exemples de visages qui seront affichés : <br><br>" +
     "<center><img src = '"+ vaast_stim_training[0]['stimulus']+"'>" +
@@ -519,7 +493,7 @@ var vaast_instructions_4 = {
     "<h1 class ='custom-title'> Tâche 1 : Tâche du jeu vidéo</h1>" +
     "<p class='instructions'>Au début de chaque essai, vous verrez apparaître le symbole 'O'. " +
     "Ce symbole indique que vous devez appuyer sur la touche de DÉPART (c'est-à-dire, la <b>touche D</b>) pour commencer l'essai. </p>" +
-    "<p class='instructions'>Ensuite, vous verrez une croix de fixation (+) au centre de l'écran, suivie d'un visage vous disant 'bonjour'. </p>" +
+    "<p class='instructions'>Ensuite, vous verrez une croix de fixation (+) au centre de l'écran, suivie d'un visage. </p>" +
     "<p class='instructions'>En fonction de la couleur de fond (" + group_to_approach + " ou " + group_to_avoid + ") du visage, votre tâche est d'avancer en appuyant sur la touche AVANCER (c'est-à-dire, la <b>touche E</b>) " +
     "ou de reculer en appuyant sur la touche RECULER (c'est-à-dire, la <b>touche C</b>) le plus rapidement possible. Après avoir appuyé sur la touche E ou C, le visage disparaîtra et vous devrez " +
     "appuyer à nouveau sur la touche de DÉPART (touche D). " +
@@ -590,11 +564,9 @@ var vaast_fixation = {
   background_images: background
 }
 
-
 var vaast_first_step_training = {
   type: 'vaast-image',
   stimulus: jsPsych.timelineVariable('stimulus'),
-  voice: jsPsych.timelineVariable('voice'),  // Add a voice when the face appears
   position: 3,
   background_images: background,
   font_sizes: image_sizes,
@@ -607,8 +579,7 @@ var vaast_first_step_training = {
   display_feedback: true,
   feedback_duration: 500, 
   response_ends_trial: true
-};
-
+}
 
 var vaast_second_step = {
   type: 'vaast-image',
@@ -646,7 +617,6 @@ var vaast_training = {
   data: {
     phase: "training",
     stimulus: jsPsych.timelineVariable('stimulus'),
-    voice: jsPsych.timelineVariable('voice'),
     movement: jsPsych.timelineVariable('movement'),
     group: jsPsych.timelineVariable('group'),
   }
@@ -702,7 +672,6 @@ var vaast_bg_filename = background;
 jsPsych.pluginAPI.preloadImages(loading_gif);
 jsPsych.pluginAPI.preloadImages(vaast_instructions_images);
 jsPsych.pluginAPI.preloadImages(vaast_bg_filename);
-jsPsych.pluginAPI.preloadAudioFiles(voices);
 
 // timeline initiaization ---------------------------------------------------------------
 if (is_compatible) {
