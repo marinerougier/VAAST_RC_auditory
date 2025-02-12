@@ -291,8 +291,8 @@ var RC1 = {
         },
         stimulus: function () {
             var html = "";
-            html += "<p>Sélectionnez la voix que vous pensez être la plus similaire au </br>groupe de visages ";
-            html += "qui avait un fond " + color1 + ". Appuyez sur 'voix de gauche' pour la voix de gauche et 'voix de droite' pour la voix de droite.</br></br>";
+            html += "<p>Sélectionnez la voix que vous pensez être la plus similaire au <b>groupe de visages ";
+            html += "qui avait un fond " + color1 + "</b>. </br>Appuyez sur 'voix de gauche' pour la voix de gauche et 'voix de droite' pour la voix de droite.</br></br>";
 
             // Add both audio files
             jsPsych.timelineVariable('trialSounds', true).forEach((e, index) => {
