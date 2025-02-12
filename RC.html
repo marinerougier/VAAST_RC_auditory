@@ -186,7 +186,7 @@ var Instr_Quest = {
 
 // RC ---------------------------------------------------------------------------------------------------------------
     /* Parameters for the Reverse Correlation task */
-    var numOfPairsRC02 = 10;  // Total number of pair images images (inv & ori) = 700
+    var numOfPairsRC02 = 700;  // Total number of pair images images (inv & ori) = 700
 
     /* Generate RC trials */
     var soundsRC02 = _.range(1, numOfPairsRC02 + 1); // generate numerical sequence
@@ -210,36 +210,8 @@ var Instr_Quest = {
     
 
     var i = 1;
-    /*
-    var RC1 = {
-        timeline_variables: RC02_stim,
-        randomize_order: true,
-        data: {
-            task: 'RC1',
-            numOfPairs: numOfPairs
-        },
-        timeline: [{
-            type: 'html-button-response', //'audio-button-response',
-            on_load: function () {
-                        $('.jspsych-content-wrapper').css({ "width": "1100px" });
-                        $('.jspsych-content').css({ "max-width": "100%" });
-            },
-            stimulus: function () {
-                html = "";
-                html += "<p>Sélectionnez la voix que vous pensez être la plus similaire au </br>groupe de visages ";
-                html += "qui avait un fond " + color1 + ". Appuyez sur 'voix gauche' pour la voix de gauche et 'voix droite' pour la voix de droite.</br></br>";
-                jsPsych.timelineVariable('trialSounds', true).map(function (e) {
-                    html += "<audio controls src='" + e + "'></audio>";
-                });
-                html += "</br>Essai : " + i + "/" + numOfPairs + "</br>";
-                i += 1;
-                return html;
-            },
-            choices: ['voix gauche', 'voix droite'],
-        }]
-    };
-*/
 
+/*
 var RC1 = {
     timeline_variables: RC02_stim,
     randomize_order: true,
@@ -277,6 +249,54 @@ var RC1 = {
             // Add both audio files
             jsPsych.timelineVariable('trialSounds', true).map(function (e) {
                 html += "<audio controls src='" + e + "'></audio>";
+            });
+
+            html += "</br>Essai : " + i + "/" + numOfPairs + "</br>";
+            i += 1;
+            return html;
+        },
+        choices: ['voix de gauche', 'voix de droite'],
+    }]
+};
+*/
+
+var RC1 = {
+    timeline_variables: RC02_stim,
+    randomize_order: true,
+    data: {
+        task: 'RC1',
+        numOfPairs: numOfPairs
+    },
+    timeline: [{
+        type: 'html-button-response',
+        on_load: function () {
+            $('.jspsych-content-wrapper').css({ "width": "1100px" });
+            $('.jspsych-content').css({ "max-width": "100%" });
+
+            // Disable buttons at start
+            document.querySelectorAll('.jspsych-btn').forEach(btn => btn.disabled = true);
+
+            // Select both audio elements
+            var audioElements = document.querySelectorAll("audio");
+            var playedAudios = new Set();
+
+            audioElements.forEach(audio => {
+                audio.addEventListener("ended", function () {
+                    playedAudios.add(audio.src); // Store unique audio sources
+                    if (playedAudios.size === 2) { // Check if both audios have been played
+                        document.querySelectorAll('.jspsych-btn').forEach(btn => btn.disabled = false);
+                    }
+                });
+            });
+        },
+        stimulus: function () {
+            var html = "";
+            html += "<p>Sélectionnez la voix que vous pensez être la plus similaire au </br>groupe de visages ";
+            html += "qui avait un fond " + color1 + ". Appuyez sur 'voix de gauche' pour la voix de gauche et 'voix de droite' pour la voix de droite.</br></br>";
+
+            // Add both audio files
+            jsPsych.timelineVariable('trialSounds', true).forEach((e, index) => {
+                html += "<audio controls src='" + e + "' id='audio_" + index + "'></audio>";
             });
 
             html += "</br>Essai : " + i + "/" + numOfPairs + "</br>";
