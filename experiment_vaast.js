@@ -678,7 +678,7 @@ timeline.push(Gene_Instr,
           		vaast_instructions_3,
           		vaast_instructions_4,
           		vaast_instructions_5,
-          		//vaast_training,
+          		vaast_training,
           		vaast_instructions_end
           		);
 
