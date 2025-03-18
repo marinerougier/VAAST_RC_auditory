@@ -155,7 +155,7 @@ var RCinst2 = {
         html += "<audio controls src='" + soundsRC02[0][1] + "'></audio>";
         html += "<p class = 'justify'>Pour chaque paire, votre tâche consistera à sélectionner la voix que ";
         html += "vous pensez être <b>la plus similaire au groupe de visages qui avait un fond " + color1 + "</b> ";
-        html += "dans la tâche précédente (c'est-à-dire, le groupe que vous avez " + movement_fr + " dans la tâche du Jeu Vidéo).</p>";
+        html += "dans la tâche précédente (c'est-à-dire, <b>le groupe que vous avez " + movement_fr + "</b> dans la tâche du Jeu Vidéo).</p>";
         html += "<p></br>Appuyez sur <span class='light-keys'><kbd>espace</kbd></span> pour continuer</p>";
         return html;
     },
@@ -256,7 +256,7 @@ var RC1 = {
         stimulus: function () {
             var html = "";
             html += "<p>Sélectionnez la voix que vous pensez être la plus similaire au <b>groupe de visages ";
-            html += "qui avait un fond " + color1 + "</b> (c'est-à-dire le groupe que vous avez  " + movement_fr + "). </br>Appuyez sur 'voix de gauche' pour la voix de gauche et 'voix de droite' pour la voix de droite.</br></br>";
+            html += "qui avait un fond " + color1 + "</b> (c'est-à-dire <b>le groupe que vous avez  " + movement_fr + "</b>). </br>Appuyez sur 'voix de gauche' pour la voix de gauche et 'voix de droite' pour la voix de droite.</br></br>";
 
             // Add both audio files
             jsPsych.timelineVariable('trialSounds', true).forEach((e, index) => {
