@@ -198,7 +198,7 @@ var Instr_Quest = {
 
 // RC ---------------------------------------------------------------------------------------------------------------
     /* Parameters for the Reverse Correlation task */
-    var numOfPairsRC02 = 10;  // Total number of pair images images (inv & ori) = 700
+    var numOfPairsRC02 = 400;  // Total number of pair images images (inv & ori) = 400
 
     /* Generate RC trials */
     var soundsRC02 = _.range(1, numOfPairsRC02 + 1); // generate numerical sequence
@@ -260,7 +260,7 @@ var RC1 = {
         stimulus: function () {
             var html = "";
             html += "<p>Sélectionnez la voix que vous pensez être la plus similaire au <b>groupe de visages ";
-            html += "qui avait un fond " + color1 + "</b> (c'est-à-dire <b>le groupe que vous avez  " + movement_fr + "</b>). </br>Appuyez sur 'voix de gauche' pour la voix de gauche et 'voix de droite' pour la voix de droite.</br></br>";
+            html += "qui avait un fond " + color1 + "</b> <br>(c'est-à-dire <b>le groupe que vous avez  " + movement_fr + "</b>). </br>Appuyez sur 'voix de gauche' pour la voix de gauche et 'voix de droite' pour la voix de droite.</br></br>";
 
             // Get the current trial sounds
             var trialSounds = jsPsych.timelineVariable('trialSounds', true);
