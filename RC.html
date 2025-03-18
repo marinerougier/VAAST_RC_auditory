@@ -85,6 +85,8 @@
   var id            = jsPsych.data.getURLVariable("id");
   var prolificID    = jsPsych.data.getURLVariable("prolificID");
   var vaast_condition_approach = jsPsych.data.getURLVariable("vaast_condition_approach");
+  var movement_blue = jsPsych.data.getURLVariable("movement_blue");
+  var movement_yellow = jsPsych.data.getURLVariable("movement_yellow");
   var ColorGroup    = jsPsych.data.getURLVariable("ColorGroup");
 
   // color ramdomly selected
@@ -95,10 +97,21 @@
    if (target_color_RC == "target_blue") {
         var color1 = genColor("#2a57ea", "bleu");
         var color2 = genColor("#b5a21b", "jaune");
+        var movement1 = movement_blue;
+        var movement2 = movement_yellow;
     } else {
         var color1 = genColor("#b5a21b", "jaune");
         var color2 = genColor("#2a57ea", "bleu");
+        var movement1 = movement_yellow;
+        var movement2 = movement_blue;
     };
+
+    if (movement1 == "approach") {
+        var movement_fr = "approché";
+    } else {
+        var movement_fr = "évité";
+    };
+
 
   /* EXPERIMENT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
   /* Fullscreen mode & Consent */
@@ -142,7 +155,7 @@ var RCinst2 = {
         html += "<audio controls src='" + soundsRC02[0][1] + "'></audio>";
         html += "<p class = 'justify'>Pour chaque paire, votre tâche consistera à sélectionner la voix que ";
         html += "vous pensez être <b>la plus similaire au groupe de visages qui avait un fond " + color1 + "</b> ";
-        html += "dans la tâche précédente (c'est-à-dire, la tâche du Jeu Vidéo).</p>";
+        html += "dans la tâche précédente (c'est-à-dire, le groupe que vous avez " + movement_fr + " dans la tâche du Jeu Vidéo).</p>";
         html += "<p></br>Appuyez sur <span class='light-keys'><kbd>espace</kbd></span> pour continuer</p>";
         return html;
     },
@@ -291,7 +304,7 @@ var RC1 = {
         stimulus: function () {
             var html = "";
             html += "<p>Sélectionnez la voix que vous pensez être la plus similaire au <b>groupe de visages ";
-            html += "qui avait un fond " + color1 + "</b>. </br>Appuyez sur 'voix de gauche' pour la voix de gauche et 'voix de droite' pour la voix de droite.</br></br>";
+            html += "qui avait un fond " + color1 + "</b> (c'est-à-dire le groupe que vous avez  " + movement_fr + "). </br>Appuyez sur 'voix de gauche' pour la voix de gauche et 'voix de droite' pour la voix de droite.</br></br>";
 
             // Add both audio files
             jsPsych.timelineVariable('trialSounds', true).forEach((e, index) => {

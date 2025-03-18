@@ -718,7 +718,8 @@ if (is_compatible) {
     on_finish: function () {
       saving_browser_events(completion = true);
       window.location.href = "https://marinerougier.github.io/VAAST_RC_auditory/RC.html?id=" + id + "&prolificID=" + 
-      prolificID + "&vaast_condition_approach=" + vaast_condition_approach + "&ColorGroup=" + ColorGroup;
+      prolificID + "&vaast_condition_approach=" + vaast_condition_approach + "&movement_blue=" + movement_blue 
+      + "&movement_yellow=" + movement_yellow + "&ColorGroup=" + ColorGroup;
     }
   });
 }
