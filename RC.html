@@ -223,8 +223,13 @@ var Instr_Quest = {
 
     var i = 1;
 
+// Shuffle the left/right presentation order before running the trials
+var RC02_stim_shuffled = RC02_stim.map(trial => {
+    return Math.random() < 0.5 ? { trialSounds: trial.trialSounds.reverse() } : trial;
+});
+
 var RC1 = {
-    timeline_variables: RC02_stim,
+    timeline_variables: RC02_stim_shuffled, // Use shuffled trials here
     randomize_order: true,
     data: {
         task: 'RC1',
@@ -260,12 +265,7 @@ var RC1 = {
             // Get the current trial sounds
             var trialSounds = jsPsych.timelineVariable('trialSounds', true);
 
-            // Randomize their order
-            if (Math.random() < 0.5) {
-                trialSounds = trialSounds.reverse();
-            }
-
-            // Add both audio files in (now randomized) order
+            // Add both audio files in randomized order
             trialSounds.forEach((e, index) => {
                 html += "<audio controls src='" + e + "' id='audio_" + index + "'></audio>";
             });
@@ -277,6 +277,7 @@ var RC1 = {
         choices: ['voix de gauche', 'voix de droite'],
     }]
 };
+
 
 
 /*
