@@ -223,7 +223,66 @@ var Instr_Quest = {
 
     var i = 1;
 
+var RC1 = {
+    timeline_variables: RC02_stim,
+    randomize_order: true,
+    data: {
+        task: 'RC1',
+        numOfPairs: numOfPairs
+    },
+    timeline: [{
+        type: 'html-button-response',
+        on_load: function () {
+            $('.jspsych-content-wrapper').css({ "width": "1100px" });
+            $('.jspsych-content').css({ "max-width": "100%" });
 
+            // Disable buttons at start
+            document.querySelectorAll('.jspsych-btn').forEach(btn => btn.disabled = true);
+
+            // Select both audio elements
+            var audioElements = document.querySelectorAll("audio");
+            var playedAudios = new Set();
+
+            audioElements.forEach(audio => {
+                audio.addEventListener("ended", function () {
+                    playedAudios.add(audio.src); // Store unique audio sources
+                    if (playedAudios.size === 2) { // Check if both audios have been played
+                        document.querySelectorAll('.jspsych-btn').forEach(btn => btn.disabled = false);
+                    }
+                });
+            });
+        },
+        stimulus: function () {
+            var html = "";
+            html += "<p>Sélectionnez la voix que vous pensez être la plus similaire au <b>groupe de visages ";
+            html += "qui avait un fond " + color1 + "</b> (c'est-à-dire <b>le groupe que vous avez  " + movement_fr + "</b>). </br>Appuyez sur 'voix de gauche' pour la voix de gauche et 'voix de droite' pour la voix de droite.</br></br>";
+
+            // Get the current trial sounds and shuffle their order
+            var trialSounds = jsPsych.timelineVariable('trialSounds', true);
+            var shuffledSounds = jsPsych.randomization.shuffle(trialSounds);
+
+            // Add both audio files in shuffled order
+            shuffledSounds.forEach((e, index) => {
+                html += "<audio controls src='" + e + "' id='audio_" + index + "'></audio>";
+            });
+
+            html += "</br>Essai : " + i + "/" + numOfPairs + "</br>";
+            i += 1;
+
+            // Store the original positions in the trial data
+            jsPsych.data.addProperties({
+                sound_left: shuffledSounds[0],
+                sound_right: shuffledSounds[1]
+            });
+
+            return html;
+        },
+        choices: ['voix de gauche', 'voix de droite'],
+    }]
+};
+
+
+/*
 var RC1 = {
     timeline_variables: RC02_stim,
     randomize_order: true,
@@ -270,7 +329,7 @@ var RC1 = {
         choices: ['voix de gauche', 'voix de droite'],
     }]
 };
-
+*/
 
 // Questions ---------------------------------------------------------------------------------------------------------------
  // Liking
