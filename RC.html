@@ -257,24 +257,21 @@ var RC1 = {
             html += "<p>Sélectionnez la voix que vous pensez être la plus similaire au <b>groupe de visages ";
             html += "qui avait un fond " + color1 + "</b> (c'est-à-dire <b>le groupe que vous avez  " + movement_fr + "</b>). </br>Appuyez sur 'voix de gauche' pour la voix de gauche et 'voix de droite' pour la voix de droite.</br></br>";
 
-            // Get the current trial sounds and shuffle their order
+            // Get the current trial sounds
             var trialSounds = jsPsych.timelineVariable('trialSounds', true);
-            var shuffledSounds = jsPsych.randomization.shuffle(trialSounds);
 
-            // Add both audio files in shuffled order
-            shuffledSounds.forEach((e, index) => {
+            // Randomize their order
+            if (Math.random() < 0.5) {
+                trialSounds = trialSounds.reverse();
+            }
+
+            // Add both audio files in (now randomized) order
+            trialSounds.forEach((e, index) => {
                 html += "<audio controls src='" + e + "' id='audio_" + index + "'></audio>";
             });
 
             html += "</br>Essai : " + i + "/" + numOfPairs + "</br>";
             i += 1;
-
-            // Store the original positions in the trial data
-            jsPsych.data.addProperties({
-                sound_left: shuffledSounds[0],
-                sound_right: shuffledSounds[1]
-            });
-
             return html;
         },
         choices: ['voix de gauche', 'voix de droite'],
